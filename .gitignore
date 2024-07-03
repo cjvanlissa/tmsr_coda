@@ -20,3 +20,4 @@ embeddings.rdata
 !table_x.csv
 !complete_coocurrences.csv
 !complete_node_centrality.csv
+!meta-analytic-effects.csv

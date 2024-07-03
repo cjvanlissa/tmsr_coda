@@ -502,9 +502,12 @@ plot_meta <- function(){
   df_meta$effectsize <- factor(substr(df_meta$V2, 1,1), levels = c("d", "r"))
   df_meta$Value <- abs(as.numeric(gsub("^.+?=(.+)\\).?", "\\1", df_meta$V2)))
   df_meta$Value[df_meta$effectsize == "d"] <- d_to_r(df_meta$Value[df_meta$effectsize == "d"])
-
-  levels(df_meta$effectsize) <- paste0(levels(df_meta$effectsize), ", ", tapply(df_meta, df_meta$effectsize, function(x){
-    print(cor.test(x$Value, log(x$Frequency), use = "pairwise.complete.obs"))
+  file.remove("results_meta_analysis.txt")
+  levels(df_meta$effectsize) <- paste0(levels(df_meta$effectsize), ", ", sapply(levels(df_meta$effectsize), function(lev){
+    x <- df_meta[df_meta$effectsize == lev, ]
+    tmp <- cor.test(x$Value, log(x$Frequency), use = "pairwise.complete.obs")
+    n_obs <- sum(complete.cases(x[c("Value", "Frequency")]))
+    write(paste0("Correlation ", lev, ": r ", worcs::report(tmp$estimate), ", p ", worcs::report(tmp$p.value), ", n = ", n_obs), "results_meta_analysis.txt", append = TRUE)
     formatC(cor(x$Value, log(x$Frequency), use = "pairwise.complete.obs"), digits = 2, format = "f")
   }))
 
