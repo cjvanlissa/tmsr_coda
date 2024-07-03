@@ -1,2 +1,3 @@
-Correlation d, 0.22: r = 0.22, p = 0.31, n = 24
-Correlation r, 0.79: r = 0.79, p = 0.12, n = 5
+Correlation total: r = 0.36, p = 0.05, n = 29
+Correlation d, 0.22, 0.22: r = 0.22, p = 0.31, n = 24
+Correlation r, 0.79, 0.79: r = 0.79, p = 0.12, n = 5
